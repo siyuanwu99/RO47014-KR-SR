@@ -6,4 +6,3 @@ git clone <this repo>
 cd RO47014-KR-SR
 git submodule update --init --recursive
 ```
-HELLO!
