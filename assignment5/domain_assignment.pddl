@@ -8,31 +8,42 @@
         ;; these are the properties of a light
         (off ?l - light)
         (on ?l - light)
-        (left_on ?l - light)
-        (left_off ?l -light)
-        (right_on ?l - light)
-        (right_off ?l -light)
+        (left ?l1 ?l2 - light)
+        (right ?l1 ?l2 - light)
     )
 
     ;; this action correspond to "light ON"
     (:action light_on
-        :parameters (?l - light)
+        :parameters (?l ?ll ?lr - light)
         :precondition (and
             (off ?l)
+            (left ?ll ?l)
+            (right ?lr ?l)
             (or
                 (and 
-                    (left_on ?l)
-                    (right_off ?l)
+                    (on ?ll)
+                    (off ?lr)
                 )
                 (and 
-                    (left_off ?l)
-                    (right_on ?l)
+                    (on ?lr)
+                    (off ?ll)
                 )
             )
         )
         :effect (and
             (not (off ?l))
             (on ?l)
+        )
+    )
+    ;; this action correspond to "light OFF"
+    (:action light_off
+        :parameters (?l - light)
+        :precondition (and
+            (on ?l)
+        )
+        :effect (and
+            (not (on ?l))
+            (off ?l)
         )
     )
 )
