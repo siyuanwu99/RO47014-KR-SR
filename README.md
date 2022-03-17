@@ -13,3 +13,7 @@ git submodule update --init --recursive
 To load AH_store models, copy `./setup.sh` to your workspace
 
 source this file in your singularity image
+
+# UPDATE 17/03/2022
+
+CHECK YOUR GITLAB REPO FOR LATEST UPDATES
