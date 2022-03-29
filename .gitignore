@@ -138,7 +138,6 @@ dynamic_introspection/
 eband_local_planner/
 gazebo_ros_link_attacher/
 gazebo_ros_pkgs/
-grocery_store_utils/
 head_action/
 hey5_description/
 humanoid_msgs/
