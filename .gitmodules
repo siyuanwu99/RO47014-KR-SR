@@ -4,3 +4,6 @@
 [submodule "retail_store_simulation"]
 	path = retail_store_simulation
 	url = git@gitlab.tudelft.nl:cor/ro47014/2022_course_projects/group_13/retail_store_simulation.git
+[submodule "grocery_store_utils"]
+	path = grocery_store_utils
+	url = git@gitlab.tudelft.nl:airlab-delft/ng-staging/grocery_store_utils.git
