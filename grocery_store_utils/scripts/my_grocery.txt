@@ -1,0 +1,9 @@
+Hi! You can list your order here. We will take care of picking it from the store. 
+
+How to use this: simply type your list one product for each line, starting with a dot "." from the available list. 
+The available products are 5: hageslag, tomataten blockjes, banana, melk, applesientje. The box1 and box2 are products in simulation.
+
+Example, my grocery is:
+.hageslag_sim
+
+Update the list above with your order, and enjoy TIAGo filling the basket!

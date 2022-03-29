@@ -1,0 +1,5 @@
+<launch>
+  <node pkg="grocery_store_utils" name="grocery_list_server" type="grocery_list_server.py" output="screen" /> 
+  <node pkg="grocery_store_utils" name="collision_object_server" type="collision_object_server.py" output="screen" /> 
+  <node pkg="grocery_store_utils" name="grasp_pose_server" type="grasp_pose_server.py" output="screen" /> 
+</launch>

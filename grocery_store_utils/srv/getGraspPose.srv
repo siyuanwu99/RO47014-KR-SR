@@ -1,0 +1,8 @@
+string object_id
+string object_type
+---
+geometry_msgs/Pose grasp_pose
+geometry_msgs/Pose pre_grasp_pose
+geometry_msgs/Pose post_grasp_pose
+string frame_id
+int8 flag
