@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- General args -->
+  <arg name="rviz" default="false"/>
+  <arg name="gzclient" default="true"/>
+  <arg name="gzpose" default="-x 0.0 -y 0.0 -z 0.0 -R 0.0 -P 0.0 -Y 0.0" />
+  <arg name="world" default="full_demo"/>
+  <arg name="map" default="$(find retail_store_simulation)/maps/$(arg world)"/>
+  <arg name="use_aruco" default="true"/>
+  <arg name="use_moveit_camera" default="true"/>
+  <arg name="robot" default="tiago"/>
+
+  <!-- Launch sim with robot -->
+  <include file="$(find retail_store_simulation)/launch/tiago.launch" if="$(eval arg('robot') == 'tiago')" pass_all_args="true" />
+  <include file="$(find retail_store_simulation)/launch/albert.launch" if="$(eval arg('robot') == 'albert')" pass_all_args="true" />
+
+  <!-- Launch grocery store utils -->
+  <group if="$(eval arg('use_aruco'))">
+    <node pkg="grocery_store_utils" name="collision_object_server" type="collision_object_server.py" output="screen" /> 
+    <node pkg="grocery_store_utils" name="grasp_pose_server" type="grasp_pose_server.py" output="screen" /> 
+  </group>
+</launch>
