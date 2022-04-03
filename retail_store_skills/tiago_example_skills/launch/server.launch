@@ -1,0 +1,8 @@
+<launch>
+	<node name="pick_servers" pkg="tiago_example_skills" type="pick_server.py" output="screen">
+	</node>
+
+	<node name="place_servers" pkg="tiago_example_skills" type="place_server.py" output="screen">
+	</node>
+
+</launch>

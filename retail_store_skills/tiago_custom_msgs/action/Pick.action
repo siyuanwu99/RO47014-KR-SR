@@ -1,0 +1,9 @@
+# Goal
+uint32 aruco_id # Specify which aruco id to pick
+string object_type # Specify what object type the aruco is attached to 
+---
+# Result
+bool success 
+---
+# Feedback
+bool running
