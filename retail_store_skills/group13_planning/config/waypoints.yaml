@@ -1,0 +1,81 @@
+waypoints:
+  wp0:
+    position:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+      w: 1.0
+  wp_table_1:
+    position:
+      x: 1.90
+      y: 1.90
+      z: 0.0
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: 0.707
+      w: 0.707
+  wp_table_2:
+    position:
+      x: 1.00
+      y: 3.10
+      z: 0.0
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+      w: 1.0
+  wp_shelf_1:
+    position:
+      x: -1.70
+      y: -1.33
+      z: 0.0
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: 1.0
+      w: 0.0
+  wp_shelf_2:
+    position:
+      x: -1.50
+      y: -1.33
+      z: 0.0
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: 1.0
+      w: 0.0
+  wp_cabinet_1:
+    position:
+      x: 0.48
+      y: -1.24
+      z: 0.0
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: -0.707
+      w: 0.707
+  wp_cabinet_2:
+    position:
+      x: -0.4356
+      y: -1.24
+      z: 0.0
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: -0.707
+      w: 0.707
+  wp_basket:
+    position:
+      x: -1
+      y: 1.75
+      z: 0.0
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: 0.707
+      w: 0.707

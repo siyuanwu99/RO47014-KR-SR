@@ -1,0 +1,17 @@
+{
+  "pddlPlanner.executableOrService": "https://popf-cloud-solver.herokuapp.com/solve",
+  "python.autoComplete.extraPaths": [
+    "/home/siyuan/workspace/RO47014/devel/lib/python2.7/dist-packages",
+    "/opt/ros/noetic/lib/python3/dist-packages",
+    "/var/data/python/lib/python3.8/site-packages/"
+  ],
+  "pddl.planners": [
+    {
+      "kind": "SERVICE_SYNC",
+      "url": "https://popf-cloud-solver.herokuapp.com/solve",
+      "title": "https://popf-cloud-solver.herokuapp.com/solve",
+      "canConfigure": true
+    }
+  ],
+  "pddl.selectedPlanner": "https://popf-cloud-solver.herokuapp.com/solve"
+}
