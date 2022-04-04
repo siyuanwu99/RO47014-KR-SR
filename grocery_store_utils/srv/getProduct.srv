@@ -1,0 +1,4 @@
+---
+int32 arucoId
+geometry_msgs/Pose2D base_pose
+int8 flag

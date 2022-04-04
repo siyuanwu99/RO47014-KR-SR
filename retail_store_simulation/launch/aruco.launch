@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+    <node pkg="aruco_ros" type="marker_publisher" name="aruco_marker_publisher">
+        <remap from="/camera_info" to="/xtion/rgb/camera_info" />
+        <remap from="/image" to="/xtion/rgb/image_rect_color" />
+        <param name="image_is_rectified" value="true"/>
+        <param name="marker_size"        value="0.045"/>
+        <param name="reference_frame"    value="/map"/>
+        <param name="camera_frame"       value="/xtion_rgb_optical_frame"/>
+        <param name="marker_frame"       value="aruco_frame" />
+        <param name="corner_refinement"  value="SUBPIX" />
+    </node>
+</launch>

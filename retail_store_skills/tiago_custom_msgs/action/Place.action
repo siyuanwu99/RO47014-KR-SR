@@ -1,0 +1,9 @@
+# Goal
+uint32 aruco_id # Specify which aruco id to place on
+geometry_msgs/PointStamped position # Alternatively specify global goal position
+---
+# Result
+bool success 
+---
+# Feedback
+bool running

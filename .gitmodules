@@ -1,6 +1,0 @@
-[submodule "retail_store_skills"]
-	path = retail_store_skills
-	url = git@gitlab.tudelft.nl:cor/ro47014/2022_course_projects/group_13/retail_store_skills.git
-[submodule "retail_store_simulation"]
-	path = retail_store_simulation
-	url = git@gitlab.tudelft.nl:cor/ro47014/2022_course_projects/group_13/retail_store_simulation.git

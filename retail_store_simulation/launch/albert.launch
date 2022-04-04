@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- General args -->
+  <arg name="rviz" default="false" />
+  <arg name="gui" default="true" />
+  <arg name="gzpose" default="-x -2.0 -y 0.0 -z 0.0 -R 0.0 -P 0.0 -Y 0.0" />
+  <arg name="world" default="full_demo" />
+  <arg name="map" default="$(find retail_store_simulation)/maps/$(arg world)" />
+  <arg name="use_aruco" default="true" />
+
+  <!-- TODO: Everything Albert -->
+</launch>

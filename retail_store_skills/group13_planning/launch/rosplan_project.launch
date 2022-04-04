@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<launch>
+
+	<rosparam command="load" file="$(find group13)/config/waypoints.yaml" />
+	<rosparam command="load" file="$(find group13)/config/objects.yaml" />
+
+	<!-- ROSPlan -->
+	<include file="$(find rosplan_planning_system)/launch/interfaced_planning_system.launch" >
+		<arg name="domain_path"		value="$(find group13)/pddl_files/domain.pddl" />
+		<arg name="problem_path"	value="$(find group13)/pddl_files/problem.pddl" />
+	</include>
+
+	
+	<!-- move_base action interface -->
+	<node name="rosplan_interface_move_base" pkg="group13" type="moveBaseInterface" respawn="false" output="screen">
+		<param name="knowledge_base"		value="rosplan_knowledge_base" />
+		<param name="pddl_action_name"		value="move" />
+		<param name="action_dispatch_topic" value="/rosplan_plan_dispatcher/action_dispatch" />
+		<param name="action_feedback_topic" value="/rosplan_plan_dispatcher/action_feedback" />
+	</node>
+
+	<node name="rosplan_interface_pick" pkg="group13" type="pickInterface" respawn="false" output="screen">
+		<param name="knowledge_base"		value="rosplan_knowledge_base" />
+		<param name="pddl_action_name"		value="pick" />
+		<param name="action_dispatch_topic" value="/rosplan_plan_dispatcher/action_dispatch" />
+		<param name="action_feedback_topic" value="/rosplan_plan_dispatcher/action_feedback" />
+	</node>
+
+	<node name="rosplan_interface_place" pkg="group13" type="placeInterface" respawn="false" output="screen">
+		<param name="knowledge_base"		value="rosplan_knowledge_base" />
+		<param name="pddl_action_name"		value="place" />
+		<param name="action_dispatch_topic" value="/rosplan_plan_dispatcher/action_dispatch" />
+		<param name="action_feedback_topic" value="/rosplan_plan_dispatcher/action_feedback" />
+	</node>
+
+	<node name="rosplan_interface_discard" pkg="group13" type="discardInterface" respawn="false" output="screen">
+		<param name="knowledge_base"		value="rosplan_knowledge_base" />
+		<param name="pddl_action_name"		value="discard" />
+		<param name="action_dispatch_topic" value="/rosplan_plan_dispatcher/action_dispatch" />
+		<param name="action_feedback_topic" value="/rosplan_plan_dispatcher/action_feedback" />
+	</node>
+
+	<node name="pick_servers" pkg="tiago_example_skills" type="pick_server.py" output="screen">
+	</node>
+
+	<node name="place_servers" pkg="tiago_example_skills" type="place_server.py" output="screen">
+	</node>
+
+</launch>

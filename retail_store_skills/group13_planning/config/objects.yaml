@@ -1,0 +1,84 @@
+objects:
+  ah_hagelslag_aruco_16: 
+    aruco:
+      id:
+        16
+    position:
+      x: 1.4
+      y: 3
+      z: 1.05
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+      w: 1
+  wp_table_2: 
+    position:
+      x: 1.4
+      y: 2.8
+      z: 1.05
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+      w: 1
+  wp_basket: 
+    position:
+      x: -1
+      y: 2.20
+      z: 0.7
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+      w: 1
+  ah_hagelslag_aruco_17: 
+    aruco:
+      id:
+        17
+    position:
+      x: 1.4
+      y: 2.9
+      z: 1.05
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: -1.0
+      w: 0.0
+  ah_hagelslag_aruco_1: 
+    aruco:
+      id:
+        1
+    position:
+      x: 1.4
+      y: 3.10
+      z: 1.05
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: -1.0
+      w: 0.0
+  ah_hagelslag_aruco_0: 
+    aruco:
+      id:
+        0
+  wp_shelf_1:
+    position:
+      x: -2.35
+      y: -1.45
+      z: 0.92
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+      w: 1
+  wp_shelf_2:
+    position:
+      x: -2.35
+      y: -1.40
+      z: 0.92
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+      w: 1

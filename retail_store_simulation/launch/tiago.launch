@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- General args -->
+  <arg name="rviz" default="false"/>
+  <arg name="gzclient" default="true"/>
+  <arg name="gzpose" default="-x 0.0 -y 0.0 -z 0.0 -R 0.0 -P 0.0 -Y 0.0" />
+  <arg name="world" default="full_demo"/>
+  <arg name="map" default="$(find retail_store_simulation)/maps/$(arg world)"/>
+  <arg name="use_aruco" default="true"/>
+
+  <!-- Tiago specific args -->
+  <arg name="end_effector_right" default="pal-gripper" />
+  <arg name="end_effector_left" default="pal-gripper" />
+  <arg name="ft_sensor_right" default="schunk-ft" />
+  <arg name="ft_sensor_left" default="schunk-ft" />
+  <arg name="laser_model" default="sick-561" />
+  <arg name="camera_model" default="orbbec-astra" />
+  <arg name="advanced_navigation" default="False" />
+  <arg name="has_screen" default="False" />
+  <arg name="tuck_arm" default="true" />
+  <arg name="use_moveit_camera" default="true" />
+  <arg name="public_sim" default="true" />
+  <arg name="nav_mode" default="navigation" doc="options: navigation, mapping"/>
+
+  <!-- Recommended way to launch tiago dual sim including navigation (Requires env variables to find models and resources of this repository!)-->
+  <include file="$(find tiago_dual_2dnav_gazebo)/launch/tiago_dual_$(arg nav_mode).launch" pass_all_args="true" />
+
+  <!-- Launch Grasp Services (Awaiting for this to be included in tiago_dual_navigation by PAL) -->
+  <include file="$(find pal_parallel_gripper_wrapper)/launch/grasping_service.launch">
+    <arg name="suffix" value="_left" />
+  </include>
+  <include file="$(find pal_parallel_gripper_wrapper)/launch/grasping_service.launch">
+    <arg name="suffix" value="_right" />
+  </include>
+  <node pkg="tf2_ros" type="static_transform_publisher" name="gripper_right_grasp" args="0.05 0.0 0.0 0.0 0.0 0.0 1.0 gripper_right_grasping_frame gripper_right_grasp" />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="gripper_left_grasp" args="0.05 0.0 0.0 0.0 0.0 0.0 1.0 gripper_left_grasping_frame gripper_left_grasp" />
+
+  <!-- Throttle pointcloud messages if use_moveit_camera is used -->
+  <group if="$(eval arg('use_moveit_camera'))">
+    <node name="octomap_throttle" pkg="topic_tools" type="throttle" args="messages /xtion/depth_registered/points 2  /throttle_filtering_points/filtered_points" />
+    <param name="move_group/octomap_resolution" type="double" value="0.05" />
+    <param name="move_group/octomap_frame" type="string" value="map" />
+  </group>
+
+  <!-- Launch Aruco Detection -->
+  <group if="$(eval arg('use_aruco'))">
+    <param name="aruco/use_aruco" type="bool" value="$(arg use_aruco)" />
+
+    <include file="$(find retail_store_simulation)/launch/aruco.launch" />
+  </group>
+
+</launch>
