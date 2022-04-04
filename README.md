@@ -86,15 +86,14 @@ To launch the project environment, use the command below after sourcing all the 
 ```
 roslaunch retail_store_simulation project.launch
 ```
-In the projecy.world file, the environment mainly contains two parts: 
-* **Model part**: from line 16 to 4791. It contains 11 models including `ground_plane`, `AH_cooling`, `AH_bonus`, `AH_shelf`, `room_square`, `AH_bonus_clone`, `AH_cooling_clone`, `table`, `basket_with_aruco`, `AH_shelf_filled` and `AH_hagelslag_aruco_15`. It contains parameters including mass, inertia, relative pose, visual, collision.
-* **State part**: from line 4793 to 4992. This part contains the specific parameters (global pose, scale, velocity, acceleration, wrench) of different models. In addition to the 11 models above, it also contain the parameters of the sun. 
+In the project.world file, the environment mainly contains two parts: 
+* **Model part**: from line 16 to 5078. It contains 14 models including `ground_plane`, `AH_cooling`, `AH_bonus`, `AH_shelf`, `room_square`, `AH_bonus_clone`, `AH_cooling_clone`, `table_1`, `basket_with_aruco`, `AH_shelf_filled`, `AH_hagelslag_aruco_16`, `AH_hagelslag_aruco_17`, `AH_hagelslag_aruco_0`, `AH_hagelslag_aruco_1`. It contains parameters including mass, inertia, relative pose, visual, collision.
+* **State part**: from line 5080 to 5290. This part contains the specific parameters (global pose, scale, velocity, acceleration, wrench) of different models. In addition to the 14 models above, it also contain the parameters of the sun. 
 
-There are some models we should pay special attention to:
-* `AH_shelf_filled`: In line 4869, the global pose is (-2.99822 0.021911 0 0 0 -1.5708). It has link to its model `board`.
-* `AH_shelf_filled::board`: This is the lowest level of the shlef, but it is above the ground plane. In line 4878, the global pose is (-2.498 0.021911 0.25 0 0 -1.5708), the height is 0.25. In line 1118, the relative pose is (0 0.5 0.25 0 -0 0). In the gazebo simulation window, the pose is (x=0, y=0.5, z=0.25, roll=pitch=yaw=0). It has links to 5 hagelslag `AH_hagelslag_aruco_10-14`. 
-* `AH_hagelslag_aruco_10::link_0`: In line 4881, the global pose is (-2.498 -0.0892 0.1635 0 -0 -0.000739). In line 1132, the relative pose is (0.111111 0 0 0 -0 1.57). In the gazebo simulation window, the pose is (x=0.1111, y=0.0, z=-0.0865, yaw=1.57) (it is not the same with line 1132, kind of confused). 
-* `table`: In line 964 and line 4963, the global pose is (2 3 0 0 -0 0), the scale is (1 1 1).
-* `table::AH_hagelslag_aruco_16::link_0`: In line 4973, the global pose is (2 2.6 0.855 0 -0 -1.5708). In line 892, the relative pose to the table is (0 -0.4 0.855 0 -0 -1.5708).
-* `AH_hagelslag_aruco_15`:
-* `basket_with_aruco`:
+There are some models that are closely related to our project:
+* `table_1`: In line 988, the global pose is (2 3 0 0 -0 0).
+* `basket_with_aruco`: In line 5218, the global pose is (-1.0 2.5 0.605927 3e-05 -0 -1.70074). In line 5219, the scale is set to (2 2 1). In line 994, the mass is set to 2.5.
+* `AH_hagelslag_aruco_16`: In line 5248, the initial position is (2.3 2.65 1 0 -0 -1.5708).
+* `AH_hagelslag_aruco_0`: In line 5258, the initial position is (2.1 2.65 1 0 -0 -1.5708).
+* `AH_hagelslag_aruco_17`: In line 5268, the initial position is (1.9 2.65 1 0 -0 -1.5708).
+* `AH_hagelslag_aruco_1`: In line 5278, the initial position is (1.7 2.65 1 0 -0 -1.5708).
