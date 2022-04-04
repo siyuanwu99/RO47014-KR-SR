@@ -1,15 +1,14 @@
 <?xml version="1.0"?>
 <launch>
   <!-- General args -->
-  <arg name="rviz" default="true"/>
+  <arg name="rviz" default="false"/>
   <arg name="gzclient" default="true"/>
   <arg name="gzpose" default="-x 0.0 -y 0.0 -z 0.0 -R 0.0 -P 0.0 -Y 0.0" />
-  <arg name="world" default="krr"/>
+  <arg name="world" default="full_demo"/>
   <arg name="map" default="$(find retail_store_simulation)/maps/$(arg world)"/>
   <arg name="use_aruco" default="true"/>
   <arg name="use_moveit_camera" default="true"/>
   <arg name="robot" default="tiago"/>
-  <arg name="tuck_arm" default="true" />
 
   <!-- Launch sim with robot -->
   <include file="$(find retail_store_simulation)/launch/tiago.launch" if="$(eval arg('robot') == 'tiago')" pass_all_args="true" />

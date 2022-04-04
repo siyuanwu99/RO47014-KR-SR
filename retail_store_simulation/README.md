@@ -48,26 +48,8 @@ Specify via arguments which robot you would like to use, what world you would li
 
 ## Troubleshooting
 
-**Important**
-If you are using this simulation to work on the course Knowledge Reasoning and Representation (KRR) and you are working on windows through a virtual machine, please use the following world `krr_walls.world`. A bug in the integration of gazebo with virtual 3D HW is causing the depth camera detections to be corrupt. The simulation in the course can now be launched using:
-
-```
-roslaunch retail_store_simulation simulation.launch world:=krr_walls rviz:=true
-```
-
-
 If your simulation is launching but the model of tiago looks as follows:
 
 ![](troubleshoot1.png)
 
 This means some paths in the world file refering to the model cannot be found. Usually this happens when the world was saved by someone else or on another computer.
-
-
-## Update 08/03/2022
-
-- Add new world project.world
-- start this world `roslaunch retail_store_simulation project.launch`
-- **TODO**:
-  - [ ] The table cannot hold hagelslags. I added a board on the table but it failed.
-  - [ ] Reorder hagelslags and other products on the table.
-  - [ ] Add a hagelslags in the basket.

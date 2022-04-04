@@ -112,7 +112,7 @@
         </link>
       </model>
       <model name='aruco_cube_333'>
-        <pose frame=''>1.76576 -0.264876 0.8625 0 0 -1.63171</pose>
+        <pose frame=''>1.91576 -0.134876 0.8625 0 0 -1.63171</pose>
         <scale>1 1 1</scale>
         <link name='link'>
           <pose frame=''>1.91576 -0.134876 0.8625 0 0 -1.63171</pose>

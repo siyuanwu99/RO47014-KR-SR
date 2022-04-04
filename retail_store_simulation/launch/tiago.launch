@@ -17,7 +17,7 @@
   <arg name="camera_model" default="orbbec-astra" />
   <arg name="advanced_navigation" default="False" />
   <arg name="has_screen" default="False" />
-  <arg name="tuck_arm" default="true" />
+  <arg name="tuck_arm" default="False" />
   <arg name="use_moveit_camera" default="true" />
   <arg name="public_sim" default="true" />
   <arg name="nav_mode" default="navigation" doc="options: navigation, mapping"/>
