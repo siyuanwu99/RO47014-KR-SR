@@ -16,24 +16,12 @@ RPPickInterface::RPPickInterface(ros::NodeHandle &nh) : _nh(nh) {
 bool RPPickInterface::concreteCallback(const rosplan_dispatch_msgs::ActionDispatch::ConstPtr &msg) {
   // The action implementation goes here.
   typedef actionlib::SimpleActionClient<tiago_custom_msgs::PickAction> PickClient;
-  // version 1
-  PickClient rc("pick_server_right", true);
-  PickClient lc("pick_server_left", true);
-  // version 2
-  // PickClient ac("pick_server_right", true);
+  PickClient ac("pick_server_right", true);
 
   // wait for the action server to come up
-  // version 1
-  while (!rc.waitForServer(ros::Duration(5.0)))   {
+  while (!ac.waitForServer(ros::Duration(5.0))) {
     ROS_INFO("Waiting for the pick action server to come up!!");
   }
-  while (!lc.waitForServer(ros::Duration(5.0)))   {
-    ROS_INFO("Waiting for the pick action server to come up!!");
-  }
-  // version 2
-  // while (!ac.waitForServer(ros::Duration(5.0))) {
-  //   ROS_INFO("Waiting for the pick action server to come up!!");
-  // }
 
   // show the info of the msg
   ROS_INFO_STREAM("\033[1;32m[RPPickInterface]\033[0m robot:"     << msg->parameters[0].value);
@@ -65,69 +53,31 @@ bool RPPickInterface::concreteCallback(const rosplan_dispatch_msgs::ActionDispat
   // /opt/ros/melodic/include/actionlib/client/simple_action_client.h:317:6:
 
   if (msg->parameters[2].value == "rightgrip") {
-    // version 1
-    ROS_INFO("Sending goal1 to the right gripper");
-    rc.sendGoal(goal1);
-    rc.waitForResult();
-    ROS_INFO("Sending goal2 to the left gripper");
-    lc.sendGoal(goal2);
-    lc.waitForResult();
-
-    // // version 2
-    // // left goal first
-    // ROS_INFO("Sending goals now!!! 1");
-    // ac.sendGoal(goal2);
-    // ROS_INFO("Nihao1");
-    // // ac.waitForResult();
-    // ac.sendGoal(goal1);
-    // ROS_INFO("Wobuhao1");
-    // ac.waitForResult();
+    ROS_INFO("Sending goals now!");
+    goal.aruco_id = goal2.aruco_id * 100 + goal1.aruco_id;
+    ac.sendGoal(goal);
+    ac.waitForResult();
   } else if (msg->parameters[2].value == "leftgrip") {
-    // ROS_INFO("Sending goal1 to the left gripper");
-    // ROS_INFO_STREAM("\033[1;32m[RPPickInterface]\033[0m aruco1 id: " << goal1.aruco_id);
-    // lc.sendGoal(goal1); // sendGoal can only take one parameter tiago_custom_msgs::PickGoal goal1
-    // // lc.sendGoal(goal2); // will overlap the first one
-    // lc.waitForResult();       // this step is stuck, becuase of not using lc.wait and rc.wait above
-    // ROS_INFO("Nihao");
-    // ROS_INFO("Sending goal2 to the right gripper");
-    // rc.sendGoal(goal2);
-    // rc.waitForResult();
+    // ac.sendGoal(goal1); // sendGoal can only take one parameter tiago_custom_msgs::PickGoal goal1
+    // // ac.sendGoal(goal2); // will overlap the first one
+    // ac.waitForResult();    // this step is stuck, becuase of not using lc.wait and rc.wait above
 
-    // // version 2
-    // // left goal first
-    // ROS_INFO("Sending goals now!!! 2");
-    // ac.sendGoal(goal1);
-    // ROS_INFO("Nihao2");
-    // // ac.waitForResult();
-    // ac.sendGoal(goal2);
-    // ROS_INFO("Wobuhao2");
-    // ac.waitForResult();
-
-    // version 3
     ROS_INFO("Sending goals now!");
     goal.aruco_id = goal1.aruco_id * 100 + goal2.aruco_id;
-    lc.sendGoal(goal);
-    lc.waitForResult();
+    ac.sendGoal(goal);
+    ac.waitForResult();
   } else {
     ROS_INFO("Cannot pick object, no gripper specified");
     return false;
   }
 
   // version 1
-  if (lc.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) { 
+  if (ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) { 
     ROS_INFO("Hooray, the objects are picked up by both grippers!");
   } else {
-    ROS_INFO("TIAGo failed to pick up the objects for some reason...");
+    ROS_INFO("TIAGo failed to pick up the objects for some reason...");   // wrong !!
     return false;
   }
-
-  // // version 2
-  // if (ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) { 
-  //   ROS_INFO("Hooray, the objects are picked up by both grippers!");
-  // } else {
-  //   ROS_INFO("TIAGo failed to pick up the objects for some reason...");
-  //   return false;
-  // }
 
   // complete the action
   ROS_INFO("KCL: (%s) Pick Action completing.", msg->name.c_str());
