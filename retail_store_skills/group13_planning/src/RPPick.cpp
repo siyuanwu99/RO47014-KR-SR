@@ -11,51 +11,72 @@ namespace KCL_rosplan {
 RPPickInterface::RPPickInterface(ros::NodeHandle &nh) : _nh(nh) {
   // perform setup
 }
-
+// while ( (!rc.waitForServer(ros::Duration(5.0))) || (!lc.waitForServer(ros::Duration(5.0)) ) ) {
 /* action dispatch callback */
 bool RPPickInterface::concreteCallback(const rosplan_dispatch_msgs::ActionDispatch::ConstPtr &msg) {
   // The action implementation goes here.
   typedef actionlib::SimpleActionClient<tiago_custom_msgs::PickAction> PickClient;
-  PickClient rc("pick_server_right", true);
-  PickClient lc("pick_server_left", true);
+  PickClient ac("pick_server_right", true);
 
   // wait for the action server to come up
-  while (!rc.waitForServer(ros::Duration(5.0))) {
-    ROS_INFO("Waiting for the pick action server to come up");
+  while (!ac.waitForServer(ros::Duration(5.0))) {
+    ROS_INFO("Waiting for the pick action server to come up!!");
   }
 
+  // show the info of the msg
+  ROS_INFO_STREAM("\033[1;32m[RPPickInterface]\033[0m robot:"     << msg->parameters[0].value);
+  ROS_INFO_STREAM("\033[1;32m[RPPickInterface]\033[0m waypoint: " << msg->parameters[1].value);
+  ROS_INFO_STREAM("\033[1;32m[RPPickInterface]\033[0m gripper1: " << msg->parameters[2].value);
+  ROS_INFO_STREAM("\033[1;32m[RPPickInterface]\033[0m object1: "  << msg->parameters[3].value);
+  ROS_INFO_STREAM("\033[1;32m[RPPickInterface]\033[0m gripper2: " << msg->parameters[4].value);
+  ROS_INFO_STREAM("\033[1;32m[RPPickInterface]\033[0m object2: "  << msg->parameters[5].value);
+
+  // get the goals from the msg
+  tiago_custom_msgs::PickGoal goal1;
+  tiago_custom_msgs::PickGoal goal2;
   tiago_custom_msgs::PickGoal goal;
+  std::map<std::string, double> aruco1;
+  std::map<std::string, double> aruco2;
+  _nh.getParam("/objects/" + msg->parameters[3].value + "/aruco", aruco1);
+  _nh.getParam("/objects/" + msg->parameters[5].value + "/aruco", aruco2);
+  goal1.aruco_id    = aruco1["id"];
+  goal2.aruco_id    = aruco2["id"];
+  goal1.object_type = "hagelslag";
+  goal2.object_type = "hagelslag";
+  goal.object_type  = "hagelslag";      
+  ROS_INFO_STREAM("\033[1;32m[RPPickInterface]\033[0m aruco1 id: " << goal1.aruco_id);
+  ROS_INFO_STREAM("\033[1;32m[RPPickInterface]\033[0m aruco2 id: " << goal2.aruco_id);
 
-  std::map<std::string, double> aruco;
-  _nh.getParam("/objects/" + msg->parameters[2].value + "/aruco", aruco);
-  ROS_INFO_STREAM("\033[1;32m[RPPickInterface]\033[0m value 00: " << msg->parameters[0].value);
-  ROS_INFO_STREAM("\033[1;32m[RPPickInterface]\033[0m value 01: " << msg->parameters[1].value);
-  goal.aruco_id    = aruco["id"];
-  ROS_INFO_STREAM("\033[1;32m[RPPickInterface]\033[0m object: " << msg->parameters[2].value);
-  ROS_INFO_STREAM("\033[1;32m[RPPickInterface]\033[0m gripper: " << msg->parameters[3].value);
-  ROS_INFO_STREAM("\033[1;32m[RPPickInterface]\033[0m aruco id: " << goal.aruco_id);
-  goal.object_type = "hagelslag";
+  //STEP 1:: How to send two goals in PickClient
+  // Using std::vector<tiago_custom_msgs::PickGoal> Goals
+  //    void SimpleActionClient<ActionSpec>::sendGoal(const Goal & goal,
+  // /opt/ros/melodic/include/actionlib/client/simple_action_client.h:317:6:
 
-  if (msg->parameters[3].value == "rightgrip") {
-    ROS_INFO("Sending goal to the right gripper");
-    rc.sendGoal(goal);
-    rc.waitForResult();
-  } else if (msg->parameters[3].value == "leftgrip") {
-    ROS_INFO("Sending goal to the left gripper");
-    lc.sendGoal(goal);
-    lc.waitForResult();
+  if (msg->parameters[2].value == "rightgrip") {
+    ROS_INFO("Sending goals now!");
+    goal.aruco_id = goal2.aruco_id * 100 + goal1.aruco_id;
+    ac.sendGoal(goal);
+    ac.waitForResult();
+  } else if (msg->parameters[2].value == "leftgrip") {
+    // ac.sendGoal(goal1); // sendGoal can only take one parameter tiago_custom_msgs::PickGoal goal1
+    // // ac.sendGoal(goal2); // will overlap the first one
+    // ac.waitForResult();    // this step is stuck, becuase of not using lc.wait and rc.wait above
+
+    ROS_INFO("Sending goals now!");
+    goal.aruco_id = goal1.aruco_id * 100 + goal2.aruco_id;
+    ac.sendGoal(goal);
+    ac.waitForResult();
   } else {
     ROS_INFO("Cannot pick object, no gripper specified");
     return false;
   }
 
-  if (rc.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) { 
-    ROS_INFO("Hooray, the object is picked up by right gripper!");
-  } else if (lc.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) {
-    ROS_INFO("Hooray, the object is picked up by left gripper!");
+  // version 1
+  if (ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) { 
+    ROS_INFO("Hooray, the objects are picked up by both grippers!");
   } else {
-    ROS_INFO("TIAGo failed to pick up the object for some reason...");
-    // return false;
+    ROS_INFO("TIAGo failed to pick up the objects for some reason...");   // wrong !!
+    return false;
   }
 
   // complete the action
@@ -70,6 +91,7 @@ bool RPPickInterface::concreteCallback(const rosplan_dispatch_msgs::ActionDispat
 /*-------------*/
 
 int main(int argc, char **argv) {
+  // rosplan_interface_pick
   ros::init(argc, argv, "rosplan_pick_action", ros::init_options::AnonymousName);
   ros::NodeHandle nh("~");
 

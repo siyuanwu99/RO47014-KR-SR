@@ -10,7 +10,7 @@
   <arg name="use_aruco" default="true"/>
   <arg name="use_moveit_camera" default="true"/>
   <arg name="robot" default="tiago"/>
-  <arg name="tuck_arm" default="true" />
+  <arg name="tuck_arm" default="false" />
 
 
   <!-- Launch sim with robot -->

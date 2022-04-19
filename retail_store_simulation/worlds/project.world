@@ -60,6 +60,71 @@
         <enable_wind>0</enable_wind>
         <kinematic>0</kinematic>
       </link>
+      <model name='basket_with_aruco'>
+        <static>0</static>
+        <link name='link'>
+          <inertial>
+            <mass>2.5</mass>
+            <inertia>
+              <ixx>5.2083e-05</ixx>
+              <ixy>0</ixy>
+              <ixz>0</ixz>
+              <iyy>5.2083e-05</iyy>
+              <iyz>0</iyz>
+              <izz>2.0833e-05</izz>
+            </inertia>
+          </inertial>
+          <collision name='colision'>
+            <pose frame=''>0 0 0 0 -0 0</pose>
+            <geometry>
+              <mesh>
+                <uri>model://basket_with_aruco/meshes/basket_with_aruco.dae</uri>
+                <scale>2 2 1</scale>
+              </mesh>
+            </geometry>
+            <surface>
+              <friction>
+                <ode>
+                  <mu>30</mu>
+                  <mu2>30</mu2>
+                  <fdir1>0 0 0</fdir1>
+                </ode>
+                <torsional>
+                  <ode />
+                </torsional>
+              </friction>
+              <contact>
+                <ode>
+                  <kp>1e+06</kp>
+                  <kd>100</kd>
+                  <min_depth>0.0025</min_depth>
+                  <max_vel>1</max_vel>
+                </ode>
+              </contact>
+              <bounce />
+            </surface>
+            <max_contacts>10</max_contacts>
+          </collision>
+          <visual name='visual1'>
+            <pose frame=''>0 0 0 0 -0 0</pose>
+            <geometry>
+              <mesh>
+                <uri>model://basket_with_aruco/meshes/basket_with_aruco.dae</uri>
+                <scale>1 1 1</scale>
+              </mesh>
+            </geometry>
+          </visual>
+          <velocity_decay>
+            <linear>0</linear>
+            <angular>0</angular>
+          </velocity_decay>
+          <self_collide>0</self_collide>
+          <kinematic>0</kinematic>
+          <gravity>1</gravity>
+          <enable_wind>0</enable_wind>
+        </link>
+        <pose frame=''>1.70584 2.72084 0 0 -0 0</pose>
+      </model>
     </model>
     <gravity>0 0 -9.8</gravity>
     <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
@@ -986,71 +1051,6 @@
         <enable_wind>0</enable_wind>
       </link>
       <pose frame=''>2 3 0 0 -0 0</pose>
-    </model>
-    <model name='basket_with_aruco'>
-      <static>0</static>
-      <link name='link'>
-        <inertial>
-          <mass>2.5</mass>
-          <inertia>
-            <ixx>5.2083e-05</ixx>
-            <ixy>0</ixy>
-            <ixz>0</ixz>
-            <iyy>5.2083e-05</iyy>
-            <iyz>0</iyz>
-            <izz>2.0833e-05</izz>
-          </inertia>
-        </inertial>
-        <collision name='colision'>
-          <pose frame=''>0 0 0 0 -0 0</pose>
-          <geometry>
-            <mesh>
-              <uri>model://basket_with_aruco/meshes/basket_with_aruco.dae</uri>
-              <scale>2 2 1</scale>
-            </mesh>
-          </geometry>
-          <surface>
-            <friction>
-              <ode>
-                <mu>30</mu>
-                <mu2>30</mu2>
-                <fdir1>0 0 0</fdir1>
-              </ode>
-              <torsional>
-                <ode />
-              </torsional>
-            </friction>
-            <contact>
-              <ode>
-                <kp>1e+06</kp>
-                <kd>100</kd>
-                <min_depth>0.0025</min_depth>
-                <max_vel>1</max_vel>
-              </ode>
-            </contact>
-            <bounce />
-          </surface>
-          <max_contacts>10</max_contacts>
-        </collision>
-        <visual name='visual1'>
-          <pose frame=''>0 0 0 0 -0 0</pose>
-          <geometry>
-            <mesh>
-              <uri>model://basket_with_aruco/meshes/basket_with_aruco.dae</uri>
-              <scale>1 1 1</scale>
-            </mesh>
-          </geometry>
-        </visual>
-        <velocity_decay>
-          <linear>0</linear>
-          <angular>0</angular>
-        </velocity_decay>
-        <self_collide>0</self_collide>
-        <kinematic>0</kinematic>
-        <gravity>1</gravity>
-        <enable_wind>0</enable_wind>
-      </link>
-      <pose frame=''>1.70584 2.72084 0 0 -0 0</pose>
     </model>
     <model name='AH_shelf_filled'>
       <static>1</static>
@@ -5214,16 +5214,6 @@
           </link> -->
         </model>
       </model>
-      <model name='basket_with_aruco'>
-        <pose frame=''> -1.0 2.5 0.605927 3e-05 -0 -1.70074</pose>
-        <scale>2 2 1</scale>
-        <link name='link'>
-          <pose frame=''> -1.0 2.5 0.605927 3e-05 -0 -1.70074</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-4.22097 -0.439114 -6.7108 -0.183386 0.48031 1.37648</acceleration>
-          <wrench>-0.211049 -0.021956 -0.33554 0 -0 0</wrench>
-        </link>
-      </model>
       <model name='ground_plane'>
         <pose frame=''>0 0 0 0 -0 0</pose>
         <scale>1 1 1</scale>
@@ -5233,6 +5223,16 @@
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
+        <model name='basket_with_aruco'>
+          <pose frame=''> -1.0 2.5 0.605927 3e-05 -0 -1.70074</pose>
+          <scale>2 2 1</scale>
+          <link name='link'>
+            <pose frame=''> -1.0 2.5 0.605927 3e-05 -0 -1.70074</pose>
+            <velocity>0 0 0 0 -0 0</velocity>
+            <acceleration>-4.22097 -0.439114 -6.7108 -0.183386 0.48031 1.37648</acceleration>
+            <wrench>-0.211049 -0.021956 -0.33554 0 -0 0</wrench>
+          </link>
+        </model>
       </model>
       <model name='room_square'>
         <pose frame=''>0 0 0 0 -0 0</pose>
