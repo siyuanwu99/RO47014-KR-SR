@@ -175,11 +175,11 @@ class PickActionClass(object):
         # 4.0 Move to pre-grasp pose
         pre_goal_l = PoseStamped()
         pre_goal_l.pose = res_l.pre_grasp_pose
-        pre_goal_l.pose.position.z += 0.12  # 0.15
+        pre_goal_l.pose.position.z += 0.15  # 0.12
         pre_goal_l.header.frame_id = res_l.frame_id
         pre_goal_r = PoseStamped()
         pre_goal_r.pose = res_r.pre_grasp_pose
-        pre_goal_r.pose.position.z += 0.12 # 0.15
+        pre_goal_r.pose.position.z += 0.15 # 0.12
         pre_goal_r.header.frame_id = res_r.frame_id
         self._group_l.set_pose_target(pre_goal_l)
         self._group_r.set_pose_target(pre_goal_r)
@@ -256,6 +256,7 @@ class PickActionClass(object):
         client.send_goal(goal_l)
         client.wait_for_result(rospy.Duration(20.0))
         rospy.loginfo("Left arm tucked.") ##
+        rospy.sleep(1.0)
         rospy.loginfo("Tuck right arm...")
         goal_r = PlayMotionGoal()
         goal_r.motion_name = 'home_'+'right'
@@ -266,22 +267,23 @@ class PickActionClass(object):
         
         # 6.5 remove cube as collision object in Moveit
         # Note: this step uses the collision_object_server
-        req_l= removeCollObjResponse()
-        req_l.object_id = str(self._aruco_id_l)
-        req_l.object_type = goal.object_type
-        req_l.aruco_pose = self._aruco_marker_l.pose.pose
-        # TODO: catch service errors
-        self._remove_co(req_l)
-        rospy.loginfo("Removed collision object.")
-        # rospy.sleep(0.5) ##
-        req_r = removeCollObjResponse()
-        req_r.object_id = str(self._aruco_id_r)
-        req_r.object_type = goal.object_type
-        req_r.aruco_pose = self._aruco_marker_r.pose.pose
-        # TODO: catch service errors
-        self._remove_co(req_r)
-        rospy.loginfo("Removed collision object.")
-        rospy.sleep(0.5)
+        # AttributeError: 'removeCollObjResponse' object has no attribute 'object_id'
+        # req_l= removeCollObjResponse()
+        # # req_l.object_id = str(self._aruco_id_l)
+        # req_l.object_type = goal.object_type
+        # req_l.aruco_pose = self._aruco_marker_l.pose.pose
+        # # TODO: catch service errors
+        # self._remove_co(req_l)
+        # rospy.loginfo("Removed collision object.")
+        # # rospy.sleep(0.5) ##
+        # req_r = removeCollObjResponse()
+        # # req_r.object_id = str(self._aruco_id_r)
+        # req_r.object_type = goal.object_type
+        # req_r.aruco_pose = self._aruco_marker_r.pose.pose
+        # # TODO: catch service errors
+        # self._remove_co(req_r)
+        # rospy.loginfo("Removed collision object.")
+        # rospy.sleep(0.5)
 
         # 7. return head to center and remove table
         head_control.run(Point(x=1.0, y=0.0, z=1.1))
